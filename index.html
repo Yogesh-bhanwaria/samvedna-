@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Outlook Deadlines – Minimal Calendar</title>
+  <style>
+    body { font-family: Arial, sans-serif; background:#f6f7fb; margin:0; display:flex; align-items:center; justify-content:center; height:100vh; }
+    .card { background:#fff; padding:20px; border-radius:12px; box-shadow:0 10px 25px rgba(0,0,0,0.08); width:420px; }
+    h2 { margin:0 0 10px; }
+    .calendar { display:grid; grid-template-columns: repeat(7, 1fr); gap:8px; }
+    .day { text-align:center; padding:10px; border-radius:8px; background:#f1f3f9; position:relative; }
+    .label { font-size:12px; color:#666; }
+    .event { position:absolute; bottom:4px; left:50%; transform:translateX(-50%); font-size:18px; }
+    .highlight { background:#ffe8e8; }
+    .legend { margin-top:12px; font-size:14px; }
+    .link { display:block; margin-top:14px; text-align:center; }
+    a { text-decoration:none; color:#3b82f6; font-weight:bold; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>📅 Deadlines – February 2026</h2>
+    <div class="calendar" id="calendar"></div>
+    <div class="legend">
+      🔴 21 Feb – Samvedna Deadline<br/>
+      🟡 25 Feb – Assignment Submission
+    </div>
+    <div class="link">
+      <a href="#">🔗 Connect Outlook (Coming Soon)</a>
+    </div>
+  </div>
+
+  <script>
+    const calendar = document.getElementById('calendar');
+    const daysInFeb = 28; // 2026 is not leap year
+    const events = {
+      21: { icon: '🔴', title: 'Samvedna Deadline' },
+      25: { icon: '🟡', title: 'Assignment Submission' }
+    };
+
+    for (let i = 1; i <= daysInFeb; i++) {
+      const div = document.createElement('div');
+      div.className = 'day';
+      div.innerHTML = `<div class=\"label\">${i}</div>`;
+      if (events[i]) {
+        div.classList.add('highlight');
+        const ev = document.createElement('div');
+        ev.className = 'event';
+        ev.title = events[i].title;
+        ev.textContent = events[i].icon;
+        div.appendChild(ev);
+      }
+      calendar.appendChild(div);
+    }
+  </script>
+</body>
+</html>
